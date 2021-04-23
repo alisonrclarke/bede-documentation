@@ -168,6 +168,7 @@ texinfo_documents = [
 html_sidebars = {
     '**': ['localtoc.html', 'relations.html'],
     'index': [],
+    'software/index': [],
     'search': []
 }
 

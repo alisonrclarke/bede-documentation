@@ -1,7 +1,58 @@
-********************************************************************
-Watson Machine Learning Community Environment resnet50 benchmark
-********************************************************************
+IBM Watson Machine Learning Community Edition (wmlce) [End of Life]
+===================================================================
 
+**Note that support for IBM Watson Machine Learning Community Edition
+ends on 30th April 2021.**
+
+
+PyTorch and TensorFlow: IBM PowerAI and wmlce
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+IBM have done a lot of work to port common Machine Learning tools to the
+POWER9 system, and to take advantage of the GPUs abililty to directly
+access main system memory on the POWER9 architecture using its “Large
+Model Support”.
+
+This has been packaged up into what is variously known as IBM Watson
+Machine Learning Community Edition (wmlce) or the catchier name PowerAI.
+
+Documentation on wmlce can be found here:
+https://www.ibm.com/support/pages/get-started-ibm-wml-ce
+
+Installation is via the IBM channel of the anaconda package management tool. **Note:
+if you do not use this channel you will not find all of the available packages.**
+First install anaconda (can be quite large - so using the /nobackup area):
+
+::
+
+   cd /nobackup/projects/<project>
+
+   wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-ppc64le.sh
+   sh Miniconda3-latest-Linux-ppc64le.sh
+   conda update conda
+   conda config --set channel_priority strict
+   conda config --prepend channels https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
+   conda create --name wmlce
+
+Then login again and install wmlce (GPU version by default - substitute
+``powerai-cpu`` for ``powerai`` for the CPU version):
+
+::
+
+   conda activate wmlce
+   conda install powerai ipython
+
+Running ``ipython`` on the login node will then allow you to experiment
+with this feature using an interactive copy of Python and the GPUs on
+the login node. Demanding work should be packaged into a job and
+launched with the ``python`` command.
+
+If a single node with 4 GPUs and 512GB RAM isn’t enough, the Distributed
+Deep Learning feature of PowerAI should allow you to write code that can
+take advantage of multiple nodes.
+
+Watson Machine Learning Community Environment resnet50 benchmark
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This Bede specific README file is based upon options laid out in the README.MD file in the WMLCE
 resnet50 benchmark directory. The necessary data from ImageNet has been downloaded and processed.
@@ -130,5 +181,3 @@ be processed.
 Unfortunately, the basic parameters used with the resnet50 run do not allow this
 job to scale much beyond 16 GPUs. Indeed, there is no speedup with this configuration
 using 32 GPUs. Improving scalability is left as an exercise for the user.
- 
- 
